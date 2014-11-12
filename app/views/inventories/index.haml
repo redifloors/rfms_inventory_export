@@ -1,4 +1,5 @@
 - @inventories.group_by{|r| r.code}.each do |code, groups|
+  - next unless code
   %h2 Product Code #{'%02i' % code}
   %table
     %thead

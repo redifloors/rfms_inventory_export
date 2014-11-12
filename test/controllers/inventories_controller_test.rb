@@ -18,10 +18,10 @@ class InventoriesControllerTest < ActionController::TestCase
 
   test "should create inventory" do
     assert_difference('Inventory.count') do
-      post :create, inventory: { length_foot: @inventory.length_foot, length_inch: @inventory.length_inch, product_code: @inventory.product_code, roll_number: @inventory.roll_number, width: @inventory.width }
+      post :create, inventory: { length_foot: @inventory.feet, length_inch: @inventory.inches, product_code: @inventory.code, roll_number: @inventory.roll, width: @inventory.width }
     end
 
-    assert_redirected_to inventory_path(assigns(:inventory))
+    assert_response :success
   end
 
   test "should show inventory" do
@@ -35,7 +35,7 @@ class InventoriesControllerTest < ActionController::TestCase
   end
 
   test "should update inventory" do
-    patch :update, id: @inventory, inventory: { length_foot: @inventory.length_foot, length_inch: @inventory.length_inch, product_code: @inventory.product_code, roll_number: @inventory.roll_number, width: @inventory.width }
+    patch :update, id: @inventory, inventory: { length_foot: @inventory.feet, length_inch: @inventory.inches, product_code: @inventory.code, roll_number: @inventory.roll, width: @inventory.width }
     assert_redirected_to inventory_path(assigns(:inventory))
   end
 
