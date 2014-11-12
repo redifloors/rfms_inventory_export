@@ -1,0 +1,18 @@
+= simple_form_for @inventory do |f|
+  - if @inventory.errors.any?
+    #error_explanation
+      %h2 #{pluralize(@inventory.errors.count, 'error')} prohibited this inventory from being saved:
+      %ul
+        - @inventory.errors.full_messages.each do |message|
+          %li= message
+
+  - if action_name == 'new'
+    .field= f.input :product, label: 'Code & Roll #'
+  - else
+    .field= f.input :code, label: 'Product Code'
+    .field= f.input :roll, label: 'Roll Number'
+
+  .field= f.input :width
+  .field= f.input :feet, label: 'Length (Feet)'
+  .field= f.input :inches, label: 'Length (Inches)'
+  .actions= f.submit

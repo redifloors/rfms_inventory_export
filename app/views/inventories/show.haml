@@ -1,0 +1,25 @@
+%p#notice= notice
+
+%p
+  %strong Product code:
+  = @inventory.code
+
+%p
+  %strong Roll number:
+  = @inventory.roll
+
+%p
+  %strong Width:
+  = @inventory.width
+
+%p
+  %strong Length (feet):
+  = @inventory.feet
+
+%p
+  %strong Length (inches):
+  = @inventory.inches
+
+= link_to 'Edit', edit_inventory_path(@inventory)
+|
+= link_to 'Back', inventories_path

@@ -1,0 +1,24 @@
+- @inventories.group_by{|r| r.code}.each do |code, groups|
+  %h2 Product Code #{'%02i' % code}
+  %table
+    %thead
+      %tr
+        %th Roll
+        %th Width
+        %th Feet
+        %th Inches
+        %th{colspan:'3'}
+
+    %tbody
+      - groups.each do |inventory|
+        %tr
+          %td= inventory.roll
+          %td= inventory.width
+          %td= inventory.feet
+          %td= inventory.inches
+          %td= link_to 'Show', inventory
+          %td= link_to 'Edit', edit_inventory_path(inventory)
+          %td= link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' }
+%br
+
+= link_to 'New Inventory', new_inventory_path
