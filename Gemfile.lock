@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    ansi (1.4.3)
     arel (5.0.1.20140414130214)
     bond (0.5.1)
     bond-rails (0.0.1)
@@ -61,6 +62,14 @@ GEM
     method_source (0.8.2)
     mime-types (2.4.3)
     minitest (5.4.2)
+    minitest-rails (2.1.1)
+      minitest (~> 5.4)
+      railties (~> 4.1)
+    minitest-reporters (1.0.7)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     multi_json (1.10.1)
     pg (0.17.1)
     pry (0.10.1)
@@ -89,6 +98,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.2)
       json (~> 1.4)
+    ruby-progressbar (1.7.0)
     sass (3.2.19)
     sass-rails (4.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -137,6 +147,8 @@ DEPENDENCIES
   hirb
   jbuilder (~> 2.0)
   jquery-rails
+  minitest-rails
+  minitest-reporters
   pg
   pry
   rails (= 4.1.7)

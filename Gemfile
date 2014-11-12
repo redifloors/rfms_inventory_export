@@ -35,6 +35,9 @@ group :development do
   gem 'bond-rails'
 end
 
+gem 'minitest-rails'
+gem 'minitest-reporters'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
