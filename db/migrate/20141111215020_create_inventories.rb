@@ -6,6 +6,7 @@ class CreateInventories < ActiveRecord::Migration
       t.integer :width
       t.integer :feet
       t.integer :inches
+      t.integer :store, index: true
 
       t.timestamps
     end

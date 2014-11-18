@@ -4,7 +4,13 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @inventories = Inventory.order(:code, :created_at)
+    @inventories = Inventory.order(:store, :code, :created_at)
+  end
+
+  def report
+    @store   = params[:store] || 0
+    @product = params[:code]  || 0
+    @inventories = Inventory.where(store: @store, code: @product)
   end
 
   # GET /inventories/1
@@ -28,14 +34,27 @@ class InventoriesController < ApplicationController
 
     respond_to do |format|
       if @inventory.save
-        # format.html { redirect_to @inventory, notice: 'Inventory was successfully created.' }
-        format.html { render :new, notice: 'Inventory was successfully created.' }
+        format.html { redirect_to @inventory, notice: 'Inventory was successfully created.' }
         format.json { render :show, status: :created, location: @inventory }
       else
         format.html { render :new }
         format.json { render json: @inventory.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # Get /inventories/import
+  def bulk
+    @inventory = Inventory.new
+    @status = InventoryStatus.new
+  end
+
+  # POST /inventories/import
+  def bulk_import
+    @inventory = Inventory.new
+    @status = Inventory.bulk_import(params[:inventory][:bulk])
+
+    render :bulk
   end
 
   # PATCH/PUT /inventories/1
@@ -70,6 +89,6 @@ class InventoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inventory_params
-      params.require(:inventory).permit(:product, :code, :roll, :width, :feet, :inches)
+      params.require(:inventory).permit(:bulk, :product, :store, :code, :roll, :width, :feet, :inches)
     end
 end

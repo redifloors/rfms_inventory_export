@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :inventories
+  resources :inventories do
+    collection do
+      get  :import, action: 'bulk'
+      post :import, action: 'bulk_import'
+      get  'report/:store/:code', action: 'report', as: 'report'
+    end
+  end
+
   root 'inventories#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

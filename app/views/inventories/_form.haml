@@ -6,13 +6,12 @@
         - @inventory.errors.full_messages.each do |message|
           %li= message
 
-  - if action_name == 'new'
-    .field= f.input :product, label: 'Code & Roll #'
-  - else
-    .field= f.input :code, label: 'Product Code'
-    .field= f.input :roll, label: 'Roll Number'
+  .field= f.input :code, label: 'Product Code'
+  .field= f.input :roll, label: 'Roll Number'
 
   .field= f.input :width
   .field= f.input :feet, label: 'Length (Feet)'
   .field= f.input :inches, label: 'Length (Inches)'
+  .field= f.input :store
+
   .actions= f.submit

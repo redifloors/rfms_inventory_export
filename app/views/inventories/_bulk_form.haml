@@ -1,0 +1,13 @@
+= simple_form_for @inventory, url: import_inventories_url do |f|
+  - if @status.errors.any?
+    #error_explanation
+      %h2 #{pluralize(@status.errors.count, 'error')} prohibited this data from being imported:
+      %ul
+        - @status.errors.each do |message|
+          %li= message
+
+  - if @status.valid > 0
+    %p#notice #{@status.valid} out of #{pluralize(@status.total, 'record')} were successfully imported.
+
+  .field= f.input :bulk, as: 'text', required: true, focus: true, label: 'Bulk Input - Upload Tricoder data here'
+  .actions= f.submit 'Bulk Import'

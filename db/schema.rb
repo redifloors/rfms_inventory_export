@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20141111215020) do
     t.integer  "width"
     t.integer  "feet"
     t.integer  "inches"
+    t.integer  "store"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

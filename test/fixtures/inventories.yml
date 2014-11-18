@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  code:
-  roll: MyString
-  width: 
-  feet:
-  inches:
+carpet:
+  store:  0
+  code:   2
+  roll:   1234567
+  width:  12
+  feet:   150
+  inches: 0
 
-two:
-  code:
-  roll: MyString
-  width: 
-  feet:
-  inches:
+vinyl:
+  store:  0
+  code:   1
+  roll:   ABC1234-45
+  width:  6
+  feet:   55
+  inches: 6
