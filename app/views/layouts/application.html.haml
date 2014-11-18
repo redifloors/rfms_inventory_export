@@ -6,5 +6,6 @@
   = javascript_include_tag 'application', 'data-turbolinks-track' => true
   = csrf_meta_tags
 
-%p#notice= notice
-= yield
+.page-container
+  = show_flash
+  = yield

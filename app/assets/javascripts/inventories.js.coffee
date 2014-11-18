@@ -6,3 +6,4 @@ ready = ->
   $('textarea#inventory_bulk').focus()
 
 $(document).ready(ready)
+$(document).on('page:load', ready)

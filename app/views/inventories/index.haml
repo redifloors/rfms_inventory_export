@@ -1,29 +1,34 @@
 - @inventories.group_by{|r| r.store}.each do |store, inventories|
   - next unless store
-  %h1 Store #{'%02d' % store}
-  - inventories.group_by{|r| r.code}.each do |code, groups|
-    - next unless code
-    %h2 Produce Code #{'%02d' % code}
-    %table
-      %thead
-        %tr
-          %th Roll
-          %th Width
-          %th Length
-          %th{colspan:'3'}
+  .store
+    %h1 Store #{'%02d' % store}
+    - inventories.group_by{|r| r.code}.each do |code, groups|
+      - next unless code
+      .product
+        %h2 Product Code #{'%02d' % code}
+        %table
+          %thead
+            %tr
+              %th Roll
+              %th Width
+              %th Length
+              %th
 
-      %tbody
-        - groups.each do |inventory|
-          %tr
-            %td= inventory.roll
-            %td= '%02.02f' % inventory.width
-            %td= '%.02f'   % inventory.length
-            %td= link_to 'Show', inventory
-            %td= link_to 'Edit', edit_inventory_path(inventory)
-            %td= link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' }
+          %tbody
+            - groups.each do |inventory|
+              %tr
+                %td= inventory.roll
+                %td= '%02.02f' % inventory.width
+                %td= '%.02f'   % inventory.length
+                %td
+                  = link_to icon('binoculars', 'Show'), inventory
+                  |
+                  = link_to icon('edit', 'Edit'), edit_inventory_path(inventory)
+                  |
+                  = link_to icon('remove', 'Destroy'), inventory, method: :delete, data: { confirm: 'Are you sure?' }
 
-    %br
-    = link_to 'Report Output', report_inventories_path(store,code)
+        %br
+        = link_to 'Report Output', report_inventories_path(store,code)
 
 %p
   = link_to 'New Record', new_inventory_path
