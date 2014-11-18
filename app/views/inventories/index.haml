@@ -1,3 +1,6 @@
+- if @inventories.empty?
+  %h2 No Records Found
+
 - @inventories.group_by{|r| r.store}.each do |store, inventories|
   - next unless store
   .store
@@ -29,6 +32,8 @@
 
         %br
         = link_to 'Report Output', report_inventories_path(store,code)
+        |
+        = link_to 'Text Output', report_inventories_path(store,code,:text)
 
 %p
   = link_to 'New Record', new_inventory_path

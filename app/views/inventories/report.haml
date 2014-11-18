@@ -1,15 +1,15 @@
 %h1 Inventory report
 %h2 Product code #{'%02d' % @product} for Store #{@store}
 
-- @inventories.each do |inventory|
-  = inventory.inventory_code
-  %br
-  = inventory.width
-  %br
-  = inventory.feet
-  %br
-  = inventory.inches
-  %br
-  %br
+%p.product-list
+  - @inventories.each do |inventory|
+    %p
+      %strong= inventory.inventory_code(nil)
+      \: #{inventory.width} foot wide,
+      #{inventory.length} linear feet
 
-%br= link_to 'Back', inventories_path
+%br
+  = link_to 'Back', inventories_path
+  |
+  = link_to 'Text Version', report_inventories_path(@store, @product, :text)
+

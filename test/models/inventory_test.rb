@@ -48,6 +48,7 @@ class InventoryTest < ActiveSupport::TestCase
 
   test 'should respond to inventory_code' do
     assert_respond_to @inv, :inventory_code
-    assert_equal "@#{'%02d'%@inv.code}#{@inv.roll}", @inv.inventory_code
+    assert_equal "#{'%02d'%@inv.code}#{@inv.roll}", @inv.inventory_code
+    assert_equal "@#{'%02d'%@inv.code}#{@inv.roll}", @inv.inventory_code('@')
   end
 end

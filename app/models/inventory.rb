@@ -79,7 +79,7 @@ class Inventory < ActiveRecord::Base
   end
 
   def sq_feet
-    length * width
+    (length * width).round(2)
   end
 
   def yards
@@ -87,15 +87,15 @@ class Inventory < ActiveRecord::Base
   end
 
   def sq_yards
-    yards * width
+    (yards * width).round(2)
   end
 
   def product_code
     '%02d' % code
   end
 
-  def inventory_code
-    "@#{product_code}#{roll}"
+  def inventory_code(pre = nil)
+    "#{pre}#{product_code}#{roll}"
   end
 
   def self.new_by_product(product)

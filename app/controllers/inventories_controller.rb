@@ -4,13 +4,20 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @inventories = Inventory.order(:store, :code, :created_at)
+    @inventories = Inventory.all
+    @inventories = @inventories.order(:store, :code, :created_at)
+    @inventories = @inventories.where(store: params[:store]) if params[:store]
+    @inventories = @inventories.where(code: params[:code]) if params[:code]
   end
 
   def report
     @store   = params[:store] || 0
     @product = params[:code]  || 0
     @inventories = Inventory.where(store: @store, code: @product)
+    respond_to do |format|
+      format.html {}
+      format.text { render '_text_report' }
+    end
   end
 
   # GET /inventories/1
