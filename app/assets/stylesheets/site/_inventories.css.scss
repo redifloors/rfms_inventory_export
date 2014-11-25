@@ -1,11 +1,19 @@
 // Place all the styles related to the inventories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-textarea#inventory_bulk {
-  width: 350px;
-  height: 500px;
-}
+#inventory {
+  textarea#inventory_bulk {
+    width: 350px;
+    height: 500px;
+  }
 
-.product, .store {
-  padding-bottom: 20px;
+  .product, .store {
+    padding-bottom: 20px;
+  }
+
+
+  tr {
+    td:nth-child(1) { padding-left: 5px; }
+    &.updated { border-left: 5px solid green; }
+  }
 }

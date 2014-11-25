@@ -1,5 +1,5 @@
 #inventory
-  = render 'nav'
+  -#= render 'nav'
 
   - if @inventories.empty?
     %h2 No Products
@@ -27,7 +27,7 @@
 
             %tbody
               - groups.each do |inventory|
-                %tr
+                %tr{ class: ('updated' if inventory.updated?) }
                   %td= link_to inventory.roll, inventory
                   %td= '%02.02f' % inventory.width
                   %td= '%.02f'   % inventory.length
@@ -37,9 +37,9 @@
                     = link_to icon('remove', 'Destroy'), inventory, method: :delete, data: { confirm: 'Are you sure?' }
 
           %br
-          = link_to 'Report Output', report_inventories_path(store,code)
-          |
-          = link_to 'Text Output', report_inventories_path(store,code,:text)
+          -#= link_to 'Report Output', report_inventories_path(store,code)
+          -#|
+          = button_to 'Text Output', report_inventories_path(store,code,:text), method: 'get'
 
     %p
       = link_to 'New Record', new_inventory_path

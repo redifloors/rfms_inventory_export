@@ -15,6 +15,7 @@ end
 class Inventory < ActiveRecord::Base
   attr_accessor :product, :bulk
   # before_save :split_product
+  before_save :flag_update
 
   validates_presence_of :store, :code, :width, :feet
   validates :roll, presence: true, uniqueness: { :scope => :code }
@@ -103,6 +104,10 @@ class Inventory < ActiveRecord::Base
   end
 
   private
+
+  def flag_update
+    self.updated = true
+  end
 
   def self.split_product(product)
     if product and product.match(/.(\d{2})(.+)/)

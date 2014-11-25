@@ -2,7 +2,7 @@ require 'test_helper'
 
 class InventoryTest < ActiveSupport::TestCase
   def setup
-    @inv = Inventory.new(code: 2, roll: '1234567', width: 12, feet: 100, inches: 5)
+    @inv = Inventory.create(store: 0, code: 2, roll: '1234567', width: 12, feet: 100, inches: 5)
   end
 
   test 'should respond to product' do
@@ -51,4 +51,14 @@ class InventoryTest < ActiveSupport::TestCase
     assert_equal "#{'%02d'%@inv.code}#{@inv.roll}", @inv.inventory_code
     assert_equal "@#{'%02d'%@inv.code}#{@inv.roll}", @inv.inventory_code('@')
   end
+
+  test 'should not set update flag when created' do
+    refute @inv.updated?, 'Inventory flagged as updated, but shouldn\'t be'
+  end
+
+  test 'should set update flag when updated' do
+    @inv.update_attribute(:feet, 151)
+    assert @inv.updated?, 'Inventory is not flagged as updated, but should be.'
+  end
+
 end
