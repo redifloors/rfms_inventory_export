@@ -1,7 +1,9 @@
-%h1 Editing inventory
+%h1 Edit Inventory Record
 
-= render 'form'
+#inventory
+  = render 'form'
 
-= link_to 'Show', @inventory
-|
-= link_to 'Back', inventories_path
+  .links
+    = link_to 'Show', @inventory
+    |
+    = link_to 'Back', inventories_path

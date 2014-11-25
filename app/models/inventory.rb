@@ -25,7 +25,7 @@ class Inventory < ActiveRecord::Base
     record = nil
 
     data.split("\r\n").each do |line|
-      if line[0].ord == 34 or line == 'zy' # Beginning of record or end of data
+      if !line.blank? and ( line[0].ord == 34 or line[0].ord == 64 or line == 'zy' ) # Beginning of record or end of data
         # Start the record
         if line[0].ord == 34
           line_count = 0

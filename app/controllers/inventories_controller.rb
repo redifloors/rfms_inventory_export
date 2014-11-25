@@ -8,6 +8,8 @@ class InventoriesController < ApplicationController
     @inventories = @inventories.order(:store, :code, :created_at)
     @inventories = @inventories.where(store: params[:store]) if params[:store]
     @inventories = @inventories.where(code: params[:code]) if params[:code]
+    @stores      = @inventories.collect(&:store).uniq
+    @products    = @inventories.collect(&:code).uniq
   end
 
   def report

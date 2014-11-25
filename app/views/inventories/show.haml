@@ -1,23 +1,20 @@
-%p
-  %strong Product code:
-  = @inventory.code
+#inventory
+  .container
+    .label Roll Number:
+    .field= @inventory.roll
 
-%p
-  %strong Roll number:
-  = @inventory.roll
+    .label Product Code:
+    .field= @inventory.code
 
-%p
-  %strong Width:
-  = @inventory.width
+    .label Width:
+    .field= @inventory.width
 
-%p
-  %strong Length (feet):
-  = @inventory.feet
+    .label Length (feet):
+    .width= @inventory.feet
 
-%p
-  %strong Length (inches):
-  = @inventory.inches
+    .label Length (inches):
+    .field= @inventory.inches
 
-= link_to 'Edit', edit_inventory_path(@inventory)
-|
-= link_to 'Back', inventories_path
+  .links
+    = button_to 'Edit', edit_inventory_path(@inventory), :method => :get
+    -#= button_to 'Back', inventories_path
