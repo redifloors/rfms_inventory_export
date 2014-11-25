@@ -17,6 +17,7 @@
       - inventories.group_by{|r| r.code}.each do |code, groups|
         - next unless code
         .product
+          .report= button_to "Report for Store #{store}, PR Code #{'%02d'%code}", report_inventories_path(store,code,:text), method: 'get'
           %h2 Product Code #{'%02d' % code}
           %table
             %thead
@@ -36,11 +37,6 @@
                     = link_to icon('edit', 'Edit'), edit_inventory_path(inventory), :method => :get, class: 'blue'
                     |
                     = link_to icon('remove', 'Delete'), inventory, :method => :delete, class: 'red', data: { confirm: 'Are you sure?' }
-
-          %br
-          -#= link_to 'Report Output', report_inventories_path(store,code)
-          -#|
-          = button_to "Report for Store #{store}, Product #{'%02d'%code}", report_inventories_path(store,code,:text), method: 'get'
 
     %p
       = link_to 'New Record', new_inventory_path

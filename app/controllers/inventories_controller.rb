@@ -25,7 +25,7 @@ class InventoriesController < ApplicationController
 
     respond_to do |format|
       format.html {}
-      format.text { render '_text_report' }
+      format.text { send_data render_to_string('_text_report'), filename: "Store_%s_PRCode_%02d.txt" % [ @store, @product ] }
     end
   end
 
