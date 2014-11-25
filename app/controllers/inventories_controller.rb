@@ -4,18 +4,25 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @inventories = Inventory.all
-    @inventories = @inventories.order(:store, :code, :created_at)
-    @inventories = @inventories.where(store: params[:store]) if params[:store]
-    @inventories = @inventories.where(code: params[:code]) if params[:code]
-    @stores      = @inventories.collect(&:store).uniq
-    @products    = @inventories.collect(&:code).uniq
+    @checked_stores = []
+    @checked_codes  = []
+    if params[:inventory]
+      @checked_stores = params[:inventory][:store]
+      @checked_stores = params[:inventory][:code]
+    end
+
+    @stores      = Inventory.all.collect(&:store).uniq.sort
+    @products    = Inventory.all.collect(&:code).uniq.sort
+
+    @inventories = get_selection(params[:inventory])
   end
 
   def report
     @store   = params[:store] || 0
     @product = params[:code]  || 0
-    @inventories = Inventory.where(store: @store, code: @product)
+
+    @inventories = get_selection(params)
+
     respond_to do |format|
       format.html {}
       format.text { render '_text_report' }
@@ -88,6 +95,24 @@ class InventoriesController < ApplicationController
       format.html { redirect_to inventories_path, notice: 'Inventory was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_selection(params = {})
+    inv = Inventory.all
+
+    if params.kind_of?(Hash)
+      [:store, :roll, :code].each do |item|
+        params.delete(item) if params.has_key?(item) and
+            params[item].blank? or
+            ( params[item].kind_of?(Array) and params[item][0].blank? )
+      end
+
+      inv = inv.where(store: params[:store]) if params.has_key?(:store)
+      inv = inv.where(code:  params[:code] ) if params.has_key?(:code)
+      inv = inv.where('roll LIKE ?', '%' + params[:roll].upcase + '%' ) if params.has_key?(:roll)
+    end
+
+    inv.order(:store, :code, :created_at)
   end
 
   private

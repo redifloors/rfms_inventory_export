@@ -1,10 +1,11 @@
 #inventory
-  -#= render 'nav'
+  = render 'nav'
 
   - if @inventories.empty?
     %h2 No Products
 
   %p
+    %br
     = link_to 'New Record', new_inventory_path
     |
     = link_to 'Bulk Import', import_inventories_path
@@ -12,7 +13,7 @@
   - @inventories.group_by{|r| r.store}.each do |store, inventories|
     - next unless store
     .store
-      %h1 Store #{'%02d' % store}
+      %h1 Store #{store}
       - inventories.group_by{|r| r.code}.each do |code, groups|
         - next unless code
         .product
@@ -32,14 +33,14 @@
                   %td= '%02.02f' % inventory.width
                   %td= '%.02f'   % inventory.length
                   %td
-                    = link_to icon('edit', 'Edit'), edit_inventory_path(inventory)
+                    = link_to icon('edit', 'Edit'), edit_inventory_path(inventory), :method => :get, class: 'blue'
                     |
-                    = link_to icon('remove', 'Destroy'), inventory, method: :delete, data: { confirm: 'Are you sure?' }
+                    = link_to icon('remove', 'Delete'), inventory, :method => :delete, class: 'red', data: { confirm: 'Are you sure?' }
 
           %br
           -#= link_to 'Report Output', report_inventories_path(store,code)
           -#|
-          = button_to 'Text Output', report_inventories_path(store,code,:text), method: 'get'
+          = button_to "Report for Store #{store}, Product #{'%02d'%code}", report_inventories_path(store,code,:text), method: 'get'
 
     %p
       = link_to 'New Record', new_inventory_path

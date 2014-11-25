@@ -1,19 +1,175 @@
 // Place all the styles related to the inventories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+textarea#inventory_bulk {
+//  width: 350px;
+  height: 500px;
+}
+
 #inventory {
-  textarea#inventory_bulk {
-    width: 350px;
-    height: 500px;
+  tr.updated {
+    border-left: 5px solid green;
+
+    td:nth-child(1) {
+      padding-left: 5px;
+    }
+  }
+
+  h2 {
+    border-top: 1px solid;
+  }
+
+  .store {
+    border-top: 3px solid black;
   }
 
   .product, .store {
     padding-bottom: 20px;
   }
 
+  .container {
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
 
-  tr {
-    td:nth-child(1) { padding-left: 5px; }
-    &.updated { border-left: 5px solid green; }
+  form.edit_inventory {
+    @include span-columns(4);
+    @include shift(2);
+    padding-top: 25px;
+    padding-bottom: 15px;
+  }
+
+  .links {
+    @include fill-parent();
+    @include row(table);
+    padding-top: 10px;
+  }
+
+  .label {
+    @include row();
+    @include span-columns(2);
+    font-weight: bold;
+  }
+
+  .field {
+    @include span-columns(10);
+    @include omega();
+  }
+
+  .search-tools {
+    $search-tools-border-color: $base-border-color;
+    $search-tools-background: lighten($search-tools-border-color, 10);
+
+    @include clearfix;
+    border: 1px solid $search-tools-border-color;
+    background: $search-tools-background;
+    padding: $gutter / 2;
+    border-radius: $base-border-radius;
+
+    .filter {
+      margin-bottom: 1em;
+
+      @include media($large-screen) {
+        @include span-columns(3.5);
+        margin-bottom: 0;
+      }
+
+      > div {
+        @extend input[type="text"];
+        position: relative;
+
+        label {
+          font-weight: 400;
+          cursor: pointer;
+          margin-bottom: 0;
+        }
+      }
+
+      ol label {
+        display: inline;
+      }
+
+      button {
+        @include button(simple, lighten($search-tools-background, 10));
+        @include position(absolute, 5px 5px auto auto);
+        font-size: .7em;
+      }
+
+      .hide-options {
+        margin-bottom: 0;
+
+        ol, button {
+          display: none;
+        }
+      }
+    }
+
+    .trigger {
+      width: 100%;
+
+      @include media($large-screen) {
+        @include span-columns(1.5);
+      }
+
+      button {
+        width: 100%;
+        margin-top: 1em;
+        padding-top: .7em;
+        padding-bottom: .7em;
+
+        @include media($large-screen) {
+          margin-top: 1.95em;
+        }
+      }
+    }
+
+    // Search bar
+    .search-bar {
+      $search-bar-border-color: $base-border-color;
+      $search-bar-border: 1px solid $search-bar-border-color;
+      $search-bar-background: lighten($search-bar-border-color, 10);
+
+      position: relative;
+      display: inline-block;
+
+      @include media($large-screen) {
+        @include span-columns(3.5);
+        margin-bottom: 0;
+      }
+
+      input {
+        @include box-sizing(border-box);
+        display: block;
+        height: 2.6em;
+      }
+
+      div.search-and-submit {
+        position: relative;
+
+        input[type=search] {
+          @include appearance(none);
+          width: 100%;
+          padding: .5em .8em;
+          font-size: .9em;
+          font-style: italic;
+          border-radius: $base-border-radius;
+          margin: 0;
+        }
+
+        button[type=submit] {
+          @include position(absolute, 0em 0em 0em null);
+          outline: none;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          padding: 5px 10px;
+
+          img {
+            height: 12px;
+            opacity: .7;
+          }
+        }
+      }
+    }
   }
 }

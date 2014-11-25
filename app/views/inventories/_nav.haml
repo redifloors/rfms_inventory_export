@@ -1,0 +1,34 @@
+.search-tools
+  = simple_form_for :inventory, url: inventories_path, method: 'get' do |f|
+    .filter
+      %label Store Codes
+      %div
+        = f.input :store,
+          collection: @stores,
+          checked: @checked_stores,
+          label: false,
+          :as => :check_boxes,
+          :item_wrapper_tag => :li,
+          :collection_wrapper_tag => :ol,
+          :boolean_style => :inline
+
+    .filter
+      %label Product Codes
+      %div
+        = f.input :code,
+          collection: @products,
+          checked: @checked_codes,
+          label: false,
+          :as => :check_boxes,
+          :item_wrapper_tag => :li,
+          :collection_wrapper_tag => :ol,
+          :boolean_style => :inline
+
+    .search-bar
+      .search-and-submit
+        %label Roll Number
+        = f.input :roll, placeholder:'Search Roll Number', label: false
+        -#%button{type:'submit'}= icon('search')
+
+    .trigger
+      %button{type:'submit'} Update
