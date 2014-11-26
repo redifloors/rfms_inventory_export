@@ -4,17 +4,30 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
+    search_params = params[:inventory] || {}
+
     @checked_stores = []
     @checked_codes  = []
-    if params[:inventory]
-      @checked_stores = params[:inventory][:store]
-      @checked_stores = params[:inventory][:code]
-    end
 
     @stores      = Inventory.all.collect(&:store).uniq.sort
     @products    = Inventory.all.collect(&:code).uniq.sort
 
-    @inventories = get_selection(params[:inventory])
+    if search_params and search_params.any?
+      puts "search_params = #{search_params.inspect}"
+      @checked_stores = search_params[:store] if search_params.has_key?(:store)
+      @checked_codes  = search_params[:code]  if search_params.has_key?(:code)
+    else
+      if session[:filter]
+        puts "session = #{session[:filter].inspect}"
+        @checked_stores = search_params[:store] = session[:filter]['stores']
+        @checked_codes  = search_params[:code]  = session[:filter]['codes']
+      end
+    end
+
+    @inventories = get_selection(search_params)
+
+    session[:filter] = { 'stores' => @checked_stores, 'codes' => @checked_codes }
+    puts "session is now = #{session[:filter].inspect}"
   end
 
   def report
@@ -50,7 +63,7 @@ class InventoriesController < ApplicationController
 
     respond_to do |format|
       if @inventory.save
-        format.html { redirect_to @inventory, notice: 'Inventory was successfully created.' }
+        format.html { redirect_to inventories_path, notice: 'Inventory was successfully created.' }
         format.json { render :show, status: :created, location: @inventory }
       else
         format.html { render :new }
@@ -99,22 +112,27 @@ class InventoriesController < ApplicationController
 
   def clear
     Inventory.all.destroy_all
+    session[:filter] = nil
     redirect_to inventories_path, notice: 'All Records have been Cleared!'
+  end
+
+  def clear_params(params)
+    if params.kind_of?(Hash)
+      params.keys.each do |key|
+        params.delete(key) if params[key].blank? or ( params[key].kind_of?(Array) and params[key][0].blank? )
+      end
+    end
+    params || {}
   end
 
   def get_selection(params = {})
     inv = Inventory.all
+    myparams = clear_params(params)
 
-    if params.kind_of?(Hash)
-      [:store, :roll, :code].each do |item|
-        params.delete(item) if params.has_key?(item) and
-            params[item].blank? or
-            ( params[item].kind_of?(Array) and params[item][0].blank? )
-      end
-
-      inv = inv.where(store: params[:store]) if params.has_key?(:store)
-      inv = inv.where(code:  params[:code] ) if params.has_key?(:code)
-      inv = inv.where('roll LIKE ?', '%' + params[:roll].upcase + '%' ) if params.has_key?(:roll)
+    if myparams
+      inv = inv.where(store: myparams[:store]) if myparams.has_key?(:store)
+      inv = inv.where(code:  myparams[:code] ) if myparams.has_key?(:code)
+      inv = inv.where('roll LIKE ?', '%' + myparams[:roll].upcase + '%' ) if myparams.has_key?(:roll)
     end
 
     inv.order(:store, :code, :created_at)
