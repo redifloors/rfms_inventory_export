@@ -41,4 +41,5 @@ gem 'minitest-reporters'
 
 # Use unicorn as the app server
 gem 'unicorn'
+gem 'foreman'
 
