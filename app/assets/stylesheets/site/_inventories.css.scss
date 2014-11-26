@@ -173,8 +173,24 @@ textarea#inventory_bulk {
     }
   }
 
-  .report {
+  .button-group {
+    display: block;
+    height: 75px;
+    margin: 10px 0;
+  }
+
+  .button {
+    float: left;
+    margin: 0 5px
+  }
+
+  input.warning {
+    background-color: red;
+    border: 1px solid black;
+  }
+
+  .report, .clear {
     float: right;
-    padding: 5px;
+    margin: 5px;
   }
 }

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get  :import, action: 'bulk'
       post :import, action: 'bulk_import'
       get  'report/:store/:code', action: 'report', as: 'report'
+      delete 'clear'
     end
   end
 

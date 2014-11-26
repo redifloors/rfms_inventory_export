@@ -97,6 +97,11 @@ class InventoriesController < ApplicationController
     end
   end
 
+  def clear
+    Inventory.all.destroy_all
+    redirect_to inventories_path, notice: 'All Records have been Cleared!'
+  end
+
   def get_selection(params = {})
     inv = Inventory.all
 

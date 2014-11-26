@@ -1,14 +1,15 @@
 #inventory
   = render 'nav'
 
+  .button-group
+    .button.clear
+      = button_to 'Clear All Records', clear_inventories_path, :method => :delete, class: 'warning',
+        data: { confirm: "This will erase ALL DATA\r\nAre you SURE this is what you want?" }
+    .button= button_to 'New Record', new_inventory_path, :method => :get
+    .button= button_to 'Bulk Import', import_inventories_path, :method => :get
+
   - if @inventories.empty?
     %h2 No Products
-
-  %p
-    %br
-    = link_to 'New Record', new_inventory_path
-    |
-    = link_to 'Bulk Import', import_inventories_path
 
   - @inventories.group_by{|r| r.store}.each do |store, inventories|
     - next unless store
@@ -17,7 +18,7 @@
       - inventories.group_by{|r| r.code}.each do |code, groups|
         - next unless code
         .product
-          .report= button_to "Report for Store #{store}, PR Code #{'%02d'%code}", report_inventories_path(store,code,:text), method: 'get'
+          .report= button_to "Export Store #{store}, PR Code #{'%02d'%code}", report_inventories_path(store,code,:text), method: 'get'
           %h2 Product Code #{'%02d' % code}
           %table
             %thead
@@ -38,7 +39,3 @@
                     |
                     = link_to icon('remove', 'Delete'), inventory, :method => :delete, class: 'red', data: { confirm: 'Are you sure?' }
 
-    %p
-      = link_to 'New Record', new_inventory_path
-      |
-      = link_to 'Bulk Import', import_inventories_path

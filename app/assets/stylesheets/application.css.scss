@@ -30,6 +30,15 @@
   color: green;
 }
 
+p.flash-notice {
+  border-radius: 5px;
+  color: green;
+  font-weight: bold;
+  padding: 10px;
+  background-color: lighten(green, 70%);
+  border: 1px solid green;
+}
+
 .field_with_errors {
   padding: 2px;
   background-color: red;
@@ -63,3 +72,4 @@
 .red   { color: red; }
 .green { color: green; }
 .blue  { color: blue; }
+
