@@ -29,6 +29,10 @@ group :development do
   gem 'bond-rails'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'minitest-rails'
 gem 'minitest-reporters'
 
