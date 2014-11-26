@@ -15,12 +15,10 @@ class InventoriesController < ApplicationController
     @products    = Inventory.all.collect(&:code).uniq.sort
 
     if search_params and search_params.any?
-      puts "search_params = #{search_params.inspect}"
       @checked_stores = search_params[:store] if search_params.has_key?(:store)
       @checked_codes  = search_params[:code]  if search_params.has_key?(:code)
     else
       if session[:filter]
-        puts "session = #{session[:filter].inspect}"
         @checked_stores = search_params[:store] = session[:filter]['stores']
         @checked_codes  = search_params[:code]  = session[:filter]['codes']
       end
@@ -29,7 +27,6 @@ class InventoriesController < ApplicationController
     @inventories = get_selection(search_params)
 
     session[:filter] = { 'stores' => @checked_stores, 'codes' => @checked_codes }
-    puts "session is now = #{session[:filter].inspect}"
   end
 
   def report

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class InventoriesControllerTest < ActionController::TestCase
   setup do
+    http_login
     @inventory = inventories(:carpet)
   end
 
@@ -26,7 +27,7 @@ class InventoriesControllerTest < ActionController::TestCase
         feet:  @inventory.feet
       }
     end
-    assert_redirected_to inventory_path(assigns(:inventory))
+    assert_redirected_to inventories_path
   end
 
   test 'should show inventory' do
@@ -47,7 +48,7 @@ class InventoriesControllerTest < ActionController::TestCase
       width: @inventory.width,
       feet: @inventory.feet
     }
-    assert_redirected_to inventory_path(assigns(:inventory))
+    assert_redirected_to inventories_path
   end
 
   test 'should destroy inventory' do
