@@ -2,14 +2,18 @@
   = render 'nav'
 
   .button-group
-    .button.clear
-      = button_to 'Clear All Records', clear_inventories_path, :method => :delete, class: 'warning',
-        data: { confirm: "This will erase ALL DATA\r\nAre you SURE this is what you want?" }
+    - if admin?
+      .button.clear
+        = button_to 'Clear All Records', clear_inventories_path, :method => :delete, class: 'warning',
+          data: { confirm: "This will erase ALL DATA\r\nAre you SURE this is what you want?" }
     .button= button_to 'New Record', new_inventory_path, :method => :get
     .button= button_to 'Bulk Import', import_inventories_path, :method => :get
 
   - if @inventories.empty?
     %h2 No Products
+    %p
+      Please begin by importing your inventory counts.
+      .button= button_to 'Bulk Import', import_inventories_path, :method => :get
 
   - @inventories.group_by{|r| r.store}.each do |store, inventories|
     - next unless store
@@ -36,6 +40,7 @@
                   %td= '%.02f'   % inventory.length
                   %td
                     = link_to icon('edit', 'Edit'), edit_inventory_path(inventory), :method => :get, class: 'blue'
-                    |
-                    = link_to icon('remove', 'Delete'), inventory, :method => :delete, class: 'red', data: { confirm: 'Are you sure?' }
+                    - if admin?
+                      |
+                      = link_to icon('remove', 'Delete'), inventory, :method => :delete, class: 'red', data: { confirm: 'Are you sure?' }
 

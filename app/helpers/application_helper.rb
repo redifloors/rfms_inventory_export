@@ -12,4 +12,9 @@ module ApplicationHelper
 
     output
   end
+
+  def admin?
+    session[:access] == 'admin'
+  end
+
 end

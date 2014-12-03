@@ -1,6 +1,4 @@
 class InventoriesController < ApplicationController
-  http_basic_authenticate_with name: 'Redi', password: 'redi4inventory'
-
   before_action :set_inventory, only: [:show, :edit, :update, :destroy]
 
   # GET /inventories
