@@ -58,4 +58,17 @@ class InventoriesControllerTest < ActionController::TestCase
 
     assert_redirected_to inventories_path
   end
+
+  test 'report should return text output in a specific format' do
+    output = "#{@inventory.inventory_code('@')}\r\n" +
+        "#{@inventory.width}\r\n"     +
+        "#{@inventory.feet}\r\n"      +
+        "#{@inventory.inches||0}\r\n" +
+        "\r\n"                        +
+        "zy\r\n"
+
+    get :report, store: @inventory.store, code: @inventory.code, :format => :text
+
+    assert_equal response.body, output
+  end
 end
