@@ -29,8 +29,9 @@ group :development do
   gem 'pry'
   gem 'hirb'
   gem 'bond-rails'
-  gem 'dotenv-rails'
 end
+
+gem 'dotenv-rails', :group => [:development, :test]
 
 gem 'rails_12factor', :group => :production
 

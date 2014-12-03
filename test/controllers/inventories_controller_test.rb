@@ -2,7 +2,7 @@ require 'test_helper'
 
 class InventoriesControllerTest < ActionController::TestCase
   setup do
-    http_login
+    http_login(:user)
     @inventory = inventories(:carpet)
   end
 

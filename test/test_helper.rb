@@ -7,9 +7,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  def http_login
-    user = 'Redi'
-    pw = 'redi4inventory'
+  def http_login(type = :user)
+    user = ENV[type.to_s.upcase + '_NAME']
+    pw   = ENV[type.to_s.upcase + '_PASS']
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
   end
+
 end
